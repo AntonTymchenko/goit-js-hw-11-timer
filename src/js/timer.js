@@ -55,9 +55,7 @@ class Timer {
     }
   }
 
-  static startCount() {
-    
-  }
+  static startCount() {}
 
   static timeIsOver(...arg) {
     if (
@@ -79,3 +77,4 @@ class Timer {
 const timerOne = new Timer({ selector: '#timer-1', targetDate: 'June 16, 2021' });
 
 timerOne.start();
+//
