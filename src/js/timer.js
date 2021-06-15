@@ -8,8 +8,6 @@ class Timer {
   }
   start() {
     const target = new Date(this.targetDate);
-    const { days, hours, mins, secs } = target;
-    Timer.startCountOnTable({ days, hours, mins, secs }, this.refs.timer);
 
     this.timerid = setInterval(() => {
       const currentDate = Date.now();
@@ -21,19 +19,19 @@ class Timer {
   static changeTableTime({ days, hours, mins, secs }, elem) {
     const daysNum = elem.querySelector('span[data-value="days"]');
     daysNum.textContent = days;
-    Timer.checkEnding(daysNum);
+    Timer.checkEnding(daysNum, 'Day', 'Days');
 
     const hoursNum = elem.querySelector('span[data-value="hours"]');
     hoursNum.textContent = hours;
-    Timer.checkEnding(hoursNum);
+    Timer.checkEnding(hoursNum, 'Hour', 'Hours');
 
     const minsNum = elem.querySelector('span[data-value="mins"]');
     minsNum.textContent = mins;
-    Timer.checkEnding(minsNum);
+    Timer.checkEnding(minsNum, 'Minut', 'Minuts');
 
     const secsNum = elem.querySelector('span[data-value="secs"]');
     secsNum.textContent = secs;
-    Timer.checkEnding(secsNum);
+    Timer.checkEnding(secsNum, 'Second', 'Seconds');
     Timer.timeIsOver(secsNum, minsNum, hoursNum, daysNum);
   }
   static pad(timeStr) {
@@ -47,44 +45,20 @@ class Timer {
 
     return { days, hours, mins, secs };
   }
-  static startCountOnTable({ days, hours, mins, secs }, elem) {
-    const daysNum = elem.querySelector('span[data-value="days"]');
-    daysNum.textContent = days;
-    if (daysNum.textContent === '01') {
-      daysNum;
-    }
-    elem.querySelector('span[data-value="hours"]').textContent = hours;
-    elem.querySelector('span[data-value="mins"]').textContent = mins;
-    const secsNum = elem.querySelector('span[data-value="secs"]');
-    secsNum.textContent = secs;
-    if (secsNum.textContent === '01') {
-      secsNum.nextElementSibling('.label').textContent = 'Second';
-    }
-  }
-  static checkEnding(elem) {
+
+  static checkEnding(elem, value1, value) {
     if (elem.textContent === '01') {
-      if (elem.nextElementSibling.textContent === 'Seconds') {
-        elem.nextElementSibling.textContent = 'Second';
-      } else {
-        elem.nextElementSibling.textContent = 'Seconds';
-      }
-      if (elem.nextElementSibling.textContent === 'Minuts') {
-        elem.nextElementSibling.textContent = 'Minut';
-      } else {
-        elem.nextElementSibling.textContent = 'Minuts';
-      }
-      if (elem.nextElementSibling.textContent === 'Hours') {
-        elem.nextElementSibling.textContent = 'Hour';
-      } else {
-        elem.nextElementSibling.textContent = 'Hours';
-      }
-      if (elem.nextElementSibling.textContent === 'Days') {
-        elem.nextElementSibling.textContent = 'Day';
-      } else {
-        elem.nextElementSibling.textContent = 'Days';
-      }
+      elem.nextElementSibling.textContent = value1;
+    }
+    if (elem.textContent !== '01') {
+      elem.nextElementSibling.textContent = value;
     }
   }
+
+  static startCount() {
+    
+  }
+
   static timeIsOver(...arg) {
     if (
       arg[0].textContent === '00' &&
