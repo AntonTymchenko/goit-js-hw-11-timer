@@ -74,6 +74,6 @@ class Timer {
   }
 }
 
-const timerOne = new Timer({ selector: '#timer-1', targetDate: 'June 16, 2021' });
+const timerOne = new Timer({ selector: '#timer-1', targetDate: 'June 20, 2021' });
 
 timerOne.start();
