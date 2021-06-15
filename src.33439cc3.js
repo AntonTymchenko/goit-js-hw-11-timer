@@ -5,4 +5,4 @@ class t{constructor({selector:t,targetDate:e}){this.targetDate=e,this.timerId=nu
 },{}],"Focm":[function(require,module,exports) {
 "use strict";require("./sass/main.scss"),require("./js/timer.js");
 },{"./sass/main.scss":"clu1","./js/timer.js":"yCUT"}]},{},["Focm"], null)
-//# sourceMappingURL=/goit-js-hw-11-timer/src.413282e0.js.map
+//# sourceMappingURL=/goit-js-hw-11-timer/src.33439cc3.js.map
