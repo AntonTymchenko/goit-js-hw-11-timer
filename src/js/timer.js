@@ -6,6 +6,7 @@ class Timer {
       timer: document.querySelector(selector),
     };
   }
+
   start() {
     const target = new Date(this.targetDate);
 
@@ -14,6 +15,7 @@ class Timer {
       const deltaTime = target - currentDate;
       const { days, hours, mins, secs } = Timer.getTimeComponents(deltaTime);
       Timer.changeTableTime({ days, hours, mins, secs }, this.refs.timer);
+      Timer.timeIsOver(this.refs.timer, this.timerid);
     }, 1000);
   }
   static changeTableTime({ days, hours, mins, secs }, elem) {
@@ -32,7 +34,6 @@ class Timer {
     const secsNum = elem.querySelector('span[data-value="secs"]');
     secsNum.textContent = secs;
     Timer.checkEnding(secsNum, 'Second', 'Seconds');
-    Timer.timeIsOver(secsNum, minsNum, hoursNum, daysNum);
   }
   static pad(timeStr) {
     return String(timeStr).padStart(2, '0');
@@ -55,21 +56,20 @@ class Timer {
     }
   }
 
-  static startCount() {}
-
-  static timeIsOver(...arg) {
+  static timeIsOver(elem1, elem2) {
+    const coll = elem1.querySelectorAll('.value');
     if (
-      arg[0].textContent === '00' &&
-      arg[1].textContent === '00' &&
-      arg[2].textContent === '00' &&
-      arg[3].textContent === '00'
+      coll[0].textContent === '00' &&
+      coll[1].textContent === '00' &&
+      coll[2].textContent === '00' &&
+      coll[3].textContent === '00'
     ) {
-      arg[0].textContent = '00';
-      arg[1].textContent = '00';
-      arg[2].textContent = '00';
-      arg[3].textContent = '00';
+      clearInterval(elem2);
+      coll[0].textContent = '00';
+      coll[1].textContent = '00';
+      coll[2].textContent = '00';
+      coll[3].textContent = '00';
       document.body.style.backgroundColor = 'tomato';
-      clearInterval(this.timerId);
     }
   }
 }
