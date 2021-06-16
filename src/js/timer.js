@@ -13,9 +13,9 @@ class Timer {
     this.timerid = setInterval(() => {
       const currentDate = Date.now();
       const deltaTime = target - currentDate;
+      Timer.timeIsOver(deltaTime);
       const { days, hours, mins, secs } = Timer.getTimeComponents(deltaTime);
       Timer.changeTableTime({ days, hours, mins, secs }, this.refs.timer);
-      Timer.timeIsOver(this.refs.timer, this.timerid);
     }, 1000);
   }
   static changeTableTime({ days, hours, mins, secs }, elem) {
@@ -56,24 +56,14 @@ class Timer {
     }
   }
 
-  static timeIsOver(elem1, elem2) {
-    const coll = elem1.querySelectorAll('.value');
-    if (
-      coll[0].textContent === '00' &&
-      coll[1].textContent === '00' &&
-      coll[2].textContent === '00' &&
-      coll[3].textContent === '00'
-    ) {
-      clearInterval(elem2);
-      coll[0].textContent = '00';
-      coll[1].textContent = '00';
-      coll[2].textContent = '00';
-      coll[3].textContent = '00';
+  static timeIsOver(deltaTime) {
+    if (deltaTime < 0) {
       document.body.style.backgroundColor = 'tomato';
+      clearInterval(elem2);
     }
   }
 }
 
-const timerOne = new Timer({ selector: '#timer-1', targetDate: 'June 20, 2021' });
+const timerOne = new Timer({ selector: '#timer-1', targetDate: 'June 16, 2021, 07:49' });
 
 timerOne.start();
